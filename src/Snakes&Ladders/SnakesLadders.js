@@ -4,12 +4,7 @@ import snakes from './json/snakes.json';
 import ladders from './json/ladders.json';
 import imageplayer1 from './images/image-1.png';
 import imageplayer2 from './images/image-2.png';
-import one from './images/one.png'
-import two from './images/two.png'
-import three from './images/three.png'
-import four from './images/four.png'
-import five from './images/five.png'
-import six from './images/six.png'
+import { utils } from './utils';
 import './css/snakesandladders.css';
 
 export class SnakesLadders extends React.Component {
@@ -79,7 +74,7 @@ export class SnakesLadders extends React.Component {
                 onClick={this.randomize}
                 height="40"
                 width="40"
-                src={this.getDice(dice[p])}
+                src={utils.getDice(dice[p])}
                 style={{ pointerEvents: disabled[p] ? 'none' : 'all' }}
                 alt={dice[p]}
               />}
@@ -94,7 +89,7 @@ export class SnakesLadders extends React.Component {
       return (
         <td key={index} width="45" height="15" style={{ border: '1px solid black', background: gR % 2 === 0 ? 'yellow' : 'white' }}>
           <span id={gR}>
-            {gR}
+            <strong>{gR}</strong>
             <Players gR={gR} />
           </span>
         </td>
@@ -102,36 +97,12 @@ export class SnakesLadders extends React.Component {
     })
   }
 
-  getDice = number => {
-    switch (number) {
-      case 1:
-        return one;
-      case 2:
-        return two;
-      case 3:
-        return three;
-      case 4:
-        return four;
-      case 5:
-        return five;
-      case 6:
-        return six;
-      default:
-        return null;
-    }
-  }
-
-  convertInObject = element => {
-    const { top, right, bottom, left, width, height, x, y } = element.getBoundingClientRect()
-    return { top, right, bottom, left, width, height, x, y }
-  }
-
   getElement = e => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext("2d");
     for (let i = 0; i < snakes.length; i += 1) {
-      const startIndex = this.convertInObject(document.getElementById(snakes[i][0]));
-      const endIndex = this.convertInObject(document.getElementById(snakes[i][1]));
+      const startIndex = utils.convertInObject(document.getElementById(snakes[i][0]));
+      const endIndex = utils.convertInObject(document.getElementById(snakes[i][1]));
       if (startIndex && endIndex) {
         ctx.lineWidth = 8;
         ctx.strokeStyle = "red";
@@ -146,8 +117,8 @@ export class SnakesLadders extends React.Component {
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext("2d");
     for (let i = 0; i < ladders.length; i += 1) {
-      const startIndex = this.convertInObject(document.getElementById(ladders[i][0]));
-      const endIndex = this.convertInObject(document.getElementById(ladders[i][1]));
+      const startIndex = utils.convertInObject(document.getElementById(ladders[i][0]));
+      const endIndex = utils.convertInObject(document.getElementById(ladders[i][1]));
       if (startIndex && endIndex) {
         ctx.lineWidth = 4;
         ctx.strokeStyle = "blue";
@@ -175,7 +146,7 @@ export class SnakesLadders extends React.Component {
           alert(`Game Over: ${userId} Won`);
           this.init();
         }
-        const result = this.isItemInArray([...snakes, ...ladders], this.state.user[userId]);
+        const result = utils.isItemInArray([...snakes, ...ladders], this.state.user[userId]);
         if (result[0]) {
           this.changeLocation(result[1], userId);
         }
@@ -199,15 +170,6 @@ export class SnakesLadders extends React.Component {
       user
     });
   }
-
-  isItemInArray = (array, item) => {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i][0] === item) {
-        return [true, array[i][1]];
-      }
-    }
-    return [false];
-  };
 
   randomize = e => {
     const { id } = e.target;
@@ -255,13 +217,13 @@ export class SnakesLadders extends React.Component {
       <div>
         <canvas id="canvas" width="1349" height="605" style={{ 'position': 'absolute', 'zIndex': '999' }}></canvas>
         <canvas id="canvas1" width="1349" height="605" style={{ 'position': 'absolute', 'zIndex': '999' }}></canvas>
-        <table style={{ margin: '0px auto', textAlign: 'center' }} cellPadding="13">
+        <table style={{ margin: '0px auto', textAlign: 'center', border:'2px solid' }} cellPadding="13">
           <thead>
             <tr>
-              <th colSpan="10"><strong>SNAKES & LADDERS</strong></th>
+              <th colSpan="10" style={{border:'2px solid'}}><strong>SNAKES & LADDERS</strong></th>
             </tr>
             <tr>
-              <th colSpan="10">
+              <th colSpan="10" style={{border:'2px solid'}}>
                 <span>Get one and start the walk, reach at hundred and win the game</span>
               </th>
             </tr>
