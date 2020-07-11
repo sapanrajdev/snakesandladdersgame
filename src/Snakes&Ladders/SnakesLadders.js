@@ -10,6 +10,8 @@ import three from './images/three.png'
 import four from './images/four.png'
 import five from './images/five.png'
 import six from './images/six.png'
+import './css/snakesandladders.css';
+
 export class SnakesLadders extends React.Component {
 
   state = {
@@ -68,7 +70,7 @@ export class SnakesLadders extends React.Component {
     const { loadDice, disabled, dice } = this.state;
     return (
       ['player1', 'player2'].map(p =>
-        <td key={p} colSpan="5">
+        <td style={{background:  disabled[p] ? 'white': 'skyblue' }} key={p} colSpan="5">
           <div>
             <strong>{p}</strong>{' '}
             {loadDice[p] ? 'Loading...'
@@ -133,7 +135,7 @@ export class SnakesLadders extends React.Component {
       if (startIndex && endIndex) {
         ctx.lineWidth = 8;
         ctx.strokeStyle = "red";
-        ctx.moveTo(startIndex['x'], startIndex['y']);
+        ctx.moveTo(startIndex['x']+18, startIndex['y']+18);
         ctx.lineTo(endIndex['x'], endIndex['y']);
         ctx.stroke();
       }
@@ -253,10 +255,15 @@ export class SnakesLadders extends React.Component {
       <div>
         <canvas id="canvas" width="1349" height="605" style={{ 'position': 'absolute', 'zIndex': '999' }}></canvas>
         <canvas id="canvas1" width="1349" height="605" style={{ 'position': 'absolute', 'zIndex': '999' }}></canvas>
-        <table style={{ margin: '0px auto', textAlign: 'center' }} cellPadding="15">
+        <table style={{ margin: '0px auto', textAlign: 'center' }} cellPadding="13">
           <thead>
             <tr>
               <th colSpan="10"><strong>SNAKES & LADDERS</strong></th>
+            </tr>
+            <tr>
+              <th colSpan="10">
+                <span>Get one and start the walk, reach at hundred and win the game</span>
+              </th>
             </tr>
           </thead>
           <tbody>
