@@ -148,8 +148,8 @@ export class SnakesLadders extends React.Component {
   render() {
     return (
       <div>
-        <canvas id="canvas" width="790" height="550" style={{ 'position': 'absolute', 'zIndex': '999', 'marginLeft': '330px'}}></canvas>
-        <canvas id="canvas1" width="790" height="550" style={{ 'position': 'absolute', 'zIndex': '999', 'marginLeft': '330px'}}></canvas>
+        <canvas id="canvas" width="790" height="550"></canvas>
+        <canvas id="canvas1" width="790" height="550"></canvas>
         <table cellPadding="10">
           <thead>
             <tr>

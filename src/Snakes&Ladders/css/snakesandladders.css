@@ -2,6 +2,12 @@ body {
   background: slategrey;
 }
 
+canvas {
+  position: absolute;
+  z-index: 999;
+  margin-left: 330px;
+}
+
 table {
   margin: 0px auto;
   text-align: center;
