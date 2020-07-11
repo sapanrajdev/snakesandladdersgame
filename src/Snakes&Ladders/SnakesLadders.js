@@ -1,11 +1,10 @@
 import React from 'react';
-import gridNumber from './json/GridNumber.json';
 import snakes from './json/snakes.json';
 import ladders from './json/ladders.json';
-import imageplayer1 from './images/image-1.png';
-import imageplayer2 from './images/image-2.png';
 import { utils } from './utils';
 import './css/snakesandladders.css';
+import Dices from './components/Dices';
+import GridCol from './components/GridCol';
 
 export class SnakesLadders extends React.Component {
 
@@ -33,70 +32,6 @@ export class SnakesLadders extends React.Component {
     this.getElement_1();
   }
 
-  gridLayoutCol = props => {
-    const GridRow = this.gridLayoutRow;
-    return gridNumber.map((gC, index) => {
-      return (
-        <tr key={index}>
-          <GridRow grid={gC} />
-        </tr>
-      )
-    })
-  };
-
-  players = ({ gR }) => {
-    return (
-      <>
-        {this.state.user.player1 === gR &&
-          <span>
-            <img alt="player1" src={imageplayer1} width="15" height="15" style={{ borderRadius: '50%' }} />
-          </span>
-        }
-        {this.state.user.player2 === gR &&
-          <span>
-            <img alt="player2" src={imageplayer2} width="15" height="15" style={{ borderRadius: '50%' }} />
-          </span>
-        }
-      </>
-    )
-  }
-
-  dices = () => {
-    const { loadDice, disabled, dice } = this.state;
-    return (
-      ['player1', 'player2'].map(p =>
-        <td style={{background:  disabled[p] ? 'white': 'skyblue' }} key={p} colSpan="5">
-          <div>
-            <strong>{p}</strong>{' '}
-            {loadDice[p] ? 'Loading...'
-              : <img
-                id={p}
-                onClick={this.randomize}
-                height="40"
-                width="40"
-                src={utils.getDice(dice[p])}
-                style={{ pointerEvents: disabled[p] ? 'none' : 'all' }}
-                alt={dice[p]}
-              />}
-          </div>
-        </td>)
-    )
-  }
-  gridLayoutRow = props => {
-    const { grid } = props;
-    const Players = this.players;
-    return grid.map((gR, index) => {
-      return (
-        <td key={index} width="45" height="15" style={{ border: '1px solid black', background: gR % 2 === 0 ? 'yellow' : 'white' }}>
-          <span id={gR}>
-            <strong>{gR}</strong>
-            <Players gR={gR} />
-          </span>
-        </td>
-      )
-    })
-  }
-
   getElement = e => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext("2d");
@@ -122,11 +57,11 @@ export class SnakesLadders extends React.Component {
       if (startIndex && endIndex) {
         ctx.lineWidth = 4;
         ctx.strokeStyle = "blue";
-        ctx.moveTo(startIndex['x']-300, startIndex['y']);
-        ctx.lineTo(endIndex['x']-300, endIndex['y']);
+        ctx.moveTo(startIndex['x']-300-10, startIndex['y']);
+        ctx.lineTo(endIndex['x']-300-10, endIndex['y']+20);
         ctx.stroke();
-        ctx.moveTo(startIndex['x'] + 20-330, startIndex['y']);
-        ctx.lineTo(endIndex['x'] + 20-330, endIndex['y']);
+        ctx.moveTo(startIndex['x'] + 20-330-10, startIndex['y']);
+        ctx.lineTo(endIndex['x'] + 20-330-10, endIndex['y']+20);
         ctx.stroke();
       }
     }
@@ -211,27 +146,25 @@ export class SnakesLadders extends React.Component {
   };
 
   render() {
-    const Grid = this.gridLayoutCol;
-    const Dices = this.dices;
     return (
       <div>
         <canvas id="canvas" width="790" height="550" style={{ 'position': 'absolute', 'zIndex': '999', 'marginLeft': '330px'}}></canvas>
         <canvas id="canvas1" width="790" height="550" style={{ 'position': 'absolute', 'zIndex': '999', 'marginLeft': '330px'}}></canvas>
-        <table style={{ margin: '0px auto', textAlign: 'center', border:'2px solid' }} cellPadding="10">
+        <table cellPadding="10">
           <thead>
             <tr>
-              <th colSpan="10" style={{border:'2px solid'}}><strong>SNAKES & LADDERS</strong></th>
+              <th colSpan="10"><strong>SNAKES & LADDERS</strong></th>
             </tr>
             <tr>
-              <th colSpan="10" style={{border:'2px solid'}}>
+              <th colSpan="10">
                 <span>Get one and start the walk, reach at hundred and win the game</span>
               </th>
             </tr>
           </thead>
           <tbody>
-            <Grid />
+            <GridCol {...this.state} />
             <tr>
-              <Dices />
+              <Dices {...this.state} randomize={this.randomize} />
             </tr>
 
           </tbody>
