@@ -106,8 +106,8 @@ export class SnakesLadders extends React.Component {
       if (startIndex && endIndex) {
         ctx.lineWidth = 8;
         ctx.strokeStyle = "red";
-        ctx.moveTo(startIndex['x']+18, startIndex['y']+18);
-        ctx.lineTo(endIndex['x'], endIndex['y']);
+        ctx.moveTo(startIndex['x']+18-330, startIndex['y']+18);
+        ctx.lineTo(endIndex['x']-330, endIndex['y']);
         ctx.stroke();
       }
     }
@@ -122,11 +122,11 @@ export class SnakesLadders extends React.Component {
       if (startIndex && endIndex) {
         ctx.lineWidth = 4;
         ctx.strokeStyle = "blue";
-        ctx.moveTo(startIndex['x'], startIndex['y']);
-        ctx.lineTo(endIndex['x'], endIndex['y']);
+        ctx.moveTo(startIndex['x']-300, startIndex['y']);
+        ctx.lineTo(endIndex['x']-300, endIndex['y']);
         ctx.stroke();
-        ctx.moveTo(startIndex['x'] + 20, startIndex['y']);
-        ctx.lineTo(endIndex['x'] + 20, endIndex['y']);
+        ctx.moveTo(startIndex['x'] + 20-330, startIndex['y']);
+        ctx.lineTo(endIndex['x'] + 20-330, endIndex['y']);
         ctx.stroke();
       }
     }
@@ -215,9 +215,9 @@ export class SnakesLadders extends React.Component {
     const Dices = this.dices;
     return (
       <div>
-        <canvas id="canvas" width="1349" height="605" style={{ 'position': 'absolute', 'zIndex': '999' }}></canvas>
-        <canvas id="canvas1" width="1349" height="605" style={{ 'position': 'absolute', 'zIndex': '999' }}></canvas>
-        <table style={{ margin: '0px auto', textAlign: 'center', border:'2px solid' }} cellPadding="13">
+        <canvas id="canvas" width="790" height="550" style={{ 'position': 'absolute', 'zIndex': '999', 'marginLeft': '330px'}}></canvas>
+        <canvas id="canvas1" width="790" height="550" style={{ 'position': 'absolute', 'zIndex': '999', 'marginLeft': '330px'}}></canvas>
+        <table style={{ margin: '0px auto', textAlign: 'center', border:'2px solid' }} cellPadding="10">
           <thead>
             <tr>
               <th colSpan="10" style={{border:'2px solid'}}><strong>SNAKES & LADDERS</strong></th>
